@@ -1,84 +1,78 @@
 {
   "kind": "build_request",
-  "title": "Fix and enable background music across all pages",
-  "priority": "normal",
+  "title": "Fix background music playback and add a final romantic image on the last page",
+  "priority": "high",
   "requirements": [
     {
-      "id": "REQ-11",
-      "text": "Add a real background music audio file to the frontend static assets and configure the app to use it for continuous background playback across all pages.",
+      "id": "REQ-14",
+      "text": "Make background music actually play across the entire experience (all routes) by ensuring the audio file exists at the exact path used by the app (/assets/music/background-music.mp3) and loads without 404s in production builds.",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "recent-messages"
+          "msg-4"
         ],
         "quotes": [
-          "Music add nhi hua plzz add music in background in all pages"
+          "Music nahi hua add & last me romantic pic chahiye"
         ]
       },
       "acceptanceCriteria": [
-        "A single audio file exists in the frontend static assets (e.g., under frontend/public) and is referenced by the music playback code via a valid URL path.",
-        "When the user turns music on, the track plays and loops continuously while navigating between pages (Home, Our Story, Why I Love You, Feel My Love, Proposal, Love Letter, Forever).",
-        "Music volume is set to a non-intrusive level (similar to the current 0.3 setting) and looping is enabled."
+        "A real audio file is present in the frontend static assets at /assets/music/background-music.mp3 (served by the frontend, not the backend).",
+        "Opening the deployed site and checking DevTools Network shows the music file request succeeds (no 404/failed requests).",
+        "When the user turns music ON, the track can be heard and continues when navigating between pages (e.g., / -> /our-story -> /proposal)."
       ]
     },
     {
-      "id": "REQ-12",
-      "text": "Fix MusicProvider so that background music reliably starts after a user gesture (to comply with browser autoplay restrictions) and does not silently fail when a saved 'music-playing' preference is true.",
+      "id": "REQ-15",
+      "text": "Fix MusicProvider/MusicToggle behavior so that the music reliably starts after a user gesture (browser autoplay compliance) and the toggle always reflects the true playback state (playing vs paused), including after refresh when localStorage 'music-playing' is true.",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "recent-messages"
+          "msg-4"
         ],
         "quotes": [
-          "Music add nhi hua plzz add music in background in all pages"
+          "Music nahi hua add & last me romantic pic chahiye"
         ]
       },
       "acceptanceCriteria": [
-        "If localStorage indicates music was previously enabled, the app attempts to start playback; if autoplay is blocked, the app keeps the user’s preference enabled and starts playback automatically after the next user interaction (click/tap/keypress).",
-        "Toggling music ON always results in audible playback within the same session after a permitted user gesture; toggling OFF pauses playback immediately.",
-        "The music state (on/off) persists across page reloads using localStorage and matches the actual playback state after user interaction."
+        "If localStorage('music-playing') is 'true' and autoplay is blocked, the next user gesture (click or keydown) starts playback successfully without requiring multiple attempts.",
+        "The toggle icon/aria-label updates based on actual audio playback events (play/pause/ended) and remains consistent after route navigation.",
+        "Toggling OFF pauses audio immediately and prevents any pending retry listener from starting playback again until toggled ON.",
+        "Refreshing the page preserves the user preference and results in the expected behavior: (a) plays immediately if allowed, or (b) plays on the next user gesture if blocked."
       ]
     },
     {
-      "id": "REQ-13",
-      "text": "Ensure the music toggle control works consistently on every page and reflects the true playback state (playing vs paused).",
+      "id": "REQ-16",
+      "text": "Add a romantic picture to the very end of the experience (the last page at /forever) as a prominent final visual, styled to match the existing romantic cinematic theme.",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "recent-messages"
+          "msg-4"
         ],
         "quotes": [
-          "Music add nhi hua plzz add music in background in all pages"
+          "Music nahi hua add & last me romantic pic chahiye"
         ]
       },
       "acceptanceCriteria": [
-        "The toggle button is visible on all pages (as part of the global layout) and can start/stop the background music.",
-        "The toggle icon/aria-label updates correctly based on whether music is currently playing or paused.",
-        "No console errors occur related to audio playback initialization or missing audio sources during navigation and toggling."
+        "A new romantic image asset is added under frontend/public/assets/generated and is displayed on the /forever page near the bottom as the closing visual.",
+        "The image is responsive (looks good on mobile and desktop), does not overflow the viewport, and includes meaningful alt text in English.",
+        "The image loads without errors (no 404) and matches the site’s existing soft-glow romantic aesthetic."
       ]
     }
   ],
   "constraints": [
-    "Do not edit files under frontend/src/components/ui or any other frontend immutablePaths listed in SYSTEM_CONTEXT.",
-    "Keep all changes within the existing single React app and single Motoko actor architecture (no new backend services)."
+    "Do not edit files under frontend/src/hooks/useInternetIdentity.ts, frontend/src/hooks/useInternetIdentity.tsx, frontend/src/hooks/useActor.ts, frontend/src/main.tsx, or anything in frontend/src/components/ui (immutable paths).",
+    "Do not route images or audio through the backend; serve them as static frontend assets.",
+    "Backend must remain a single Motoko actor; do not introduce additional backend services."
   ],
   "nonGoals": [
-    "Adding multiple tracks, playlists, or advanced audio mixing controls.",
-    "Implementing backend-hosted audio streaming or routing audio through the backend.",
-    "Adding third-party integrations for music hosting or playback."
+    "Adding new authentication methods beyond existing Internet Identity support.",
+    "Adding real-time features (WebSockets/chat/push notifications).",
+    "Changing the overall page flow/routes beyond adding the final image to the existing last page."
   ],
   "imageRequirements": {
-    "required": [],
+    "required": [
+      "Romantic couple silhouette at sunset with soft bokeh hearts, cinematic lighting, warm blush/champagne palette (final-romantic-scene.dim_1920x1080.png)"
+    ],
     "edits": []
-  },
-  "userProfileUpdate": {
-    "goalsToAdd": [],
-    "goalsToRemove": [],
-    "preferencesToAdd": [],
-    "preferencesToRemove": [],
-    "miscToAdd": [],
-    "miscToRemove": [],
-    "fieldsToSet": {},
-    "fieldsToDelete": []
   }
 }

@@ -1,6 +1,6 @@
 export default function Forever() {
   return (
-    <div className="relative min-h-screen flex items-center justify-center overflow-hidden px-6">
+    <div className="relative min-h-screen flex items-center justify-center overflow-hidden px-6 py-16">
       <div className="absolute inset-0 bg-gradient-to-br from-lavender via-blush to-champagne" />
       
       <div className="relative z-10 text-center max-w-4xl mx-auto">
@@ -50,6 +50,18 @@ export default function Forever() {
             <p className="font-cursive text-3xl md:text-4xl text-rose glow-text">
               I love you. ❤️
             </p>
+          </div>
+
+          {/* Final romantic image */}
+          <div className="mt-16 mb-8">
+            <div className="relative rounded-3xl overflow-hidden shadow-2xl border-4 border-rose/30 max-w-3xl mx-auto">
+              <img 
+                src="/assets/generated/final-romantic-scene.dim_1920x1080.png" 
+                alt="A romantic scene symbolizing our eternal love and journey together"
+                className="w-full h-auto object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-rose/20 via-transparent to-transparent pointer-events-none" />
+            </div>
           </div>
         </div>
       </div>

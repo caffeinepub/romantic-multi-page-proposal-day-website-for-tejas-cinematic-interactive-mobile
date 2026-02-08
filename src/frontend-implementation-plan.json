@@ -1,68 +1,69 @@
 {
   "kind": "implementation_plan",
   "version": "1.0",
-  "title": "Fix and enable continuous background music across all pages",
+  "title": "Fix site-wide background music playback and add final romantic image on /forever",
   "requirements": [
     {
-      "id": "REQ-11",
-      "summary": "Add a single real background music audio asset and configure MusicProvider to load it for continuous looping playback across navigation.",
+      "id": "REQ-14",
+      "summary": "Ensure the background music file exists at the exact public path and is served successfully in production so it can play across all routes.",
       "acceptanceCriteria": [
-        "A single audio file exists in the frontend static assets (e.g., under frontend/public) and is referenced by the music playback code via a valid URL path.",
-        "When the user turns music on, the track plays and loops continuously while navigating between pages (Home, Our Story, Why I Love You, Feel My Love, Proposal, Love Letter, Forever).",
-        "Music volume is set to a non-intrusive level (similar to the current 0.3 setting) and looping is enabled."
+        "A real audio file is present in the frontend static assets at /assets/music/background-music.mp3 (served by the frontend, not the backend).",
+        "Opening the deployed site and checking DevTools Network shows the music file request succeeds (no 404/failed requests).",
+        "When the user turns music ON, the track can be heard and continues when navigating between pages (e.g., / -> /our-story -> /proposal)."
       ],
       "file_operations": [
         {
           "path": "frontend/public/assets/music/background-music.mp3",
           "operation": "create",
-          "description": "Add a real, license-safe background music track as a static asset for the app (single track for the whole site)."
+          "description": "Add the real background music audio file at the exact static path required by the app so it is served at /assets/music/background-music.mp3 in production builds."
         },
         {
-          "path": "frontend/src/components/romance/MusicProvider.tsx",
+          "path": "frontend/index.html",
           "operation": "modify",
-          "description": "Wire the audio element to the static asset at frontend/public/assets/music/background-music.mp3 (set src via a valid public URL path), ensure loop=true and volume≈0.3, and ensure the audio element is created once so playback can continue across route navigation."
+          "description": "Add an audio preload hint for /assets/music/background-music.mp3 to reduce initial playback delay and help validate that the asset is bundled/served correctly."
         }
       ]
     },
     {
-      "id": "REQ-12",
-      "summary": "Make MusicProvider robust to autoplay restrictions: preserve the saved preference, retry playback after the next user gesture, and keep playback/persistence state consistent.",
+      "id": "REQ-15",
+      "summary": "Make MusicProvider/MusicToggle autoplay-compliant and state-accurate by using user-gesture retry logic tied to actual audio events and persisted preference.",
       "acceptanceCriteria": [
-        "If localStorage indicates music was previously enabled, the app attempts to start playback; if autoplay is blocked, the app keeps the user’s preference enabled and starts playback automatically after the next user interaction (click/tap/keypress).",
-        "Toggling music ON always results in audible playback within the same session after a permitted user gesture; toggling OFF pauses playback immediately.",
-        "The music state (on/off) persists across page reloads using localStorage and matches the actual playback state after user interaction."
+        "If localStorage('music-playing') is 'true' and autoplay is blocked, the next user gesture (click or keydown) starts playback successfully without requiring multiple attempts.",
+        "The toggle icon/aria-label updates based on actual audio playback events (play/pause/ended) and remains consistent after route navigation.",
+        "Toggling OFF pauses audio immediately and prevents any pending retry listener from starting playback again until toggled ON.",
+        "Refreshing the page preserves the user preference and results in the expected behavior: (a) plays immediately if allowed, or (b) plays on the next user gesture if blocked."
       ],
       "file_operations": [
         {
           "path": "frontend/src/components/romance/MusicProvider.tsx",
           "operation": "modify",
-          "description": "Refactor state handling so a saved 'music-playing' preference triggers an initial play attempt; if play is blocked, keep the preference enabled and register a one-time (or short-lived) user-gesture listener (click/tap/keydown) to retry play automatically. Ensure toggling OFF pauses immediately and removes any pending gesture listeners; toggling ON triggers a play attempt and, if blocked, sets up the same retry behavior. Keep localStorage in sync with the user preference while separately tracking the real playback state via audio events (play/pause/ended)."
-        }
-      ]
-    },
-    {
-      "id": "REQ-13",
-      "summary": "Ensure the global music toggle is consistent on every page and reflects the actual playback state without console errors.",
-      "acceptanceCriteria": [
-        "The toggle button is visible on all pages (as part of the global layout) and can start/stop the background music.",
-        "The toggle icon/aria-label updates correctly based on whether music is currently playing or paused.",
-        "No console errors occur related to audio playback initialization or missing audio sources during navigation and toggling."
-      ],
-      "file_operations": [
-        {
-          "path": "frontend/src/components/romance/MusicProvider.tsx",
-          "operation": "modify",
-          "description": "Expose playback state that reflects the actual audio element state (playing vs paused) and ensure provider logic cannot throw or log errors during navigation (e.g., guard against null refs, ensure src exists, and handle play() promise rejections without flipping the saved preference off)."
+          "description": "Refactor playback control to (1) arm a single user-gesture retry handler whenever play() is blocked (including on initial load when localStorage preference is true), (2) disarm any pending retry handler immediately when toggled OFF, and (3) keep isPlaying derived from real audio element events so state remains accurate across route navigation and refresh."
         },
         {
           "path": "frontend/src/components/romance/MusicToggle.tsx",
           "operation": "modify",
-          "description": "Update the toggle UI to reflect the true playback state from MusicProvider (icon and aria-label based on actual playing vs paused), while keeping the click action mapped to the provider toggle behavior so it works consistently on every page."
+          "description": "Ensure the toggle’s icon and aria-label remain strictly aligned with the real playback state reported by MusicProvider (playing vs paused), and remain stable during navigation/refresh scenarios."
+        }
+      ]
+    },
+    {
+      "id": "REQ-16",
+      "summary": "Add a prominent, responsive romantic final image near the bottom of the /forever page, matching the existing soft-glow cinematic theme.",
+      "acceptanceCriteria": [
+        "A new romantic image asset is added under frontend/public/assets/generated and is displayed on the /forever page near the bottom as the closing visual.",
+        "The image is responsive (looks good on mobile and desktop), does not overflow the viewport, and includes meaningful alt text in English.",
+        "The image loads without errors (no 404) and matches the site’s existing soft-glow romantic aesthetic."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/public/assets/generated/final-romantic-scene.dim_1920x1080.png",
+          "operation": "create",
+          "description": "Add the generated romantic closing image asset at frontend/public/assets/generated/final-romantic-scene.dim_1920x1080.png so it can be displayed on the /forever page without 404s."
         },
         {
-          "path": "frontend/src/components/romance/RomanticLayout.tsx",
+          "path": "frontend/src/pages/Forever.tsx",
           "operation": "modify",
-          "description": "Confirm the MusicToggle remains part of the global layout rendered for all routes, and adjust only if needed to ensure it is consistently visible and not conditionally unmounted during page transitions."
+          "description": "Render the final romantic image (src: /assets/generated/final-romantic-scene.dim_1920x1080.png) near the bottom as the closing visual, with responsive sizing, no overflow, and meaningful English alt text; style it to match the existing soft-glow cinematic palette."
         }
       ]
     }

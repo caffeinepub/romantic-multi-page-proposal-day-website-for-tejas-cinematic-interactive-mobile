@@ -1,42 +1,54 @@
 {
   "kind": "spec_vs_diff_report",
   "version": "1.0",
-  "generatedAt": "2026-02-08T06:08:39.141Z",
-  "summary": "Diff updates MusicProvider/MusicToggle to use a specific audio URL, loop/volume settings, localStorage preference, and playback-state tracking. However, the diff does not add the actual audio asset file, and the autoplay-retry logic appears unreliable due to one-time event listeners that are not re-armed if playback remains blocked.",
+  "generatedAt": "2026-02-08T06:13:47.274Z",
+  "summary": "Diff updates MusicProvider autoplay-retry logic and adds a final image section to /forever, plus preloads the background audio in index.html. However, no new static asset files (audio/image) were added in the diff, and MusicToggle changes are not evidenced.",
   "missing_requirements": [
     {
-      "id": "REQ-11",
-      "requirement": "Add a real background music audio file to the frontend static assets and reference it via a valid URL path.",
-      "reason": "The code references an MP3 at \"/assets/music/background-music.mp3\", but the diff shows no new static asset file being added (Added files: none).",
+      "id": "REQ-14",
+      "requirement": "Ensure a real audio file exists at the exact path used by the app (/assets/music/background-music.mp3) and loads without 404s in production builds.",
+      "reason": "The code references /assets/music/background-music.mp3 (and index.html preloads it), but the diff shows no added/modified static asset file under frontend/public/assets/music/background-music.mp3, so the requirement that a real file exists at that path is not demonstrated.",
       "evidence": [
         "frontend/src/components/romance/MusicProvider.tsx",
-        "<file-diff>: ADDED FILES: none"
+        "frontend/index.html",
+        "File diff summary: ADDED FILES: none"
       ]
     },
     {
-      "id": "REQ-12",
-      "requirement": "If autoplay is blocked while the saved preference is enabled, automatically start playback after the next user interaction (click/tap/keypress) without silently failing.",
-      "reason": "The retry listeners are registered with `{ once: true }` and `retryListenerRef.current` is set, but the code does not clear/re-register the listeners if the retry `play()` is still blocked. This can lead to a single failed retry and then no further retries on subsequent user interactions while preference remains enabled.",
+      "id": "REQ-15",
+      "requirement": "Fix MusicProvider/MusicToggle behavior so the toggle always reflects true playback state (including icon/aria-label updates based on play/pause/ended) and remains consistent after navigation/refresh.",
+      "reason": "MusicProvider now tracks playback via audio events, but there is no diff evidence of MusicToggle being updated to reflect actual playback state (icon/aria-label) as required by the acceptance criteria.",
       "evidence": [
-        "frontend/src/components/romance/MusicProvider.tsx"
+        "frontend/src/components/romance/MusicProvider.tsx",
+        "frontend-file-summaries.txt (mentions MusicToggle but no actual MusicToggle diff is shown)",
+        "File diff summary: MODIFIED FILES does not include frontend/src/components/romance/MusicToggle.tsx"
       ]
     },
     {
-      "id": "REQ-13",
-      "requirement": "Ensure the music toggle control is visible on all pages as part of the global layout.",
-      "reason": "The diff only modifies the provider and toggle components; it does not show where MusicToggle is mounted in the global layout/router. Based on the diff alone, visibility on all pages cannot be confirmed.",
+      "id": "REQ-16",
+      "requirement": "Add a new romantic image asset under frontend/public/assets/generated and display it on /forever near the bottom as the closing visual.",
+      "reason": "The /forever page now references /assets/generated/final-romantic-scene.dim_1920x1080.png, but the diff shows no added image file under frontend/public/assets/generated, so the required asset addition is not evidenced.",
       "evidence": [
-        "frontend/src/components/romance/MusicToggle.tsx",
-        "<file-diff>: Modified files list does not include App/layout mounting changes"
+        "frontend/src/pages/Forever.tsx",
+        "File diff summary: ADDED FILES: none"
       ]
     }
   ],
-  "hallucinated_features": [],
+  "hallucinated_features": [
+    {
+      "description": "Preloading the background music file via a <link rel=\"preload\" ... as=\"audio\"> tag in index.html.",
+      "reason": "The BuildRequest focuses on ensuring the asset exists at the correct path and fixing playback/toggle behavior; it does not request adding an HTML preload directive.",
+      "evidence": [
+        "frontend/index.html"
+      ]
+    }
+  ],
   "confidence": 0.74,
   "changed_files": [
     "frontend-file-summaries.txt",
+    "frontend/index.html",
     "frontend/src/components/romance/MusicProvider.tsx",
-    "frontend/src/components/romance/MusicToggle.tsx",
+    "frontend/src/pages/Forever.tsx",
     "project_state.json"
   ]
 }

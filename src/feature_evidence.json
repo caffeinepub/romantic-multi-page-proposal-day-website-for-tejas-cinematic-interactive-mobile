@@ -2,8 +2,26 @@
   "kind": "feature_evidence_report",
   "features": [
     {
-      "featureId": "feature-add-a-real-background-music-audio-file-to-the-frontend-static-assets-and-configure-the-app-to-use-it-for-continuous-background-playback-across-all-pages",
-      "featureTitle": "Add a real background music audio file to the frontend static assets and configure the app to use it for continuous background playback across all pages.",
+      "featureId": "feature-make-background-music-actually-play-across-the-entire-experience-all-routes-by-ensuring-the-audio-file-exists-at-the-exact-path-used-by-the-app-assets-music-background-music-mp3-and-loads-without-404s-in-production-builds",
+      "featureTitle": "Make background music actually play across the entire experience (all routes) by ensuring the audio file exists at the exact path used by the app (/assets/music/background-music.mp3) and loads without 404s in production builds.",
+      "files": [
+        "frontend/index.html"
+      ],
+      "components": [
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-14"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-fix-musicprovider-musictoggle-behavior-so-that-the-music-reliably-starts-after-a-user-gesture-browser-autoplay-compliance-and-the-toggle-always-reflects-the-true-playback-state-playing-vs-paused-including-after-refresh-when-localstorage-music-playing-is-true",
+      "featureTitle": "Fix MusicProvider/MusicToggle behavior so that the music reliably starts after a user gesture (browser autoplay compliance) and the toggle always reflects the true playback state (playing vs paused), including after refresh when localStorage 'music-playing' is true.",
       "files": [
         "frontend/src/components/romance/MusicProvider.tsx"
       ],
@@ -15,15 +33,15 @@
         "github-export-icp-cli@1.0.0"
       ],
       "testIds": [
-        "REQ-11"
+        "REQ-15"
       ],
       "confidence": "high"
     },
     {
-      "featureId": "feature-fix-musicprovider-so-that-background-music-reliably-starts-after-a-user-gesture-to-comply-with-browser-autoplay-restrictions-and-does-not-silently-fail-when-a-saved-music-playing-preference-is-true",
-      "featureTitle": "Fix MusicProvider so that background music reliably starts after a user gesture (to comply with browser autoplay restrictions) and does not silently fail when a saved 'music-playing' preference is true.",
+      "featureId": "feature-add-a-romantic-picture-to-the-very-end-of-the-experience-the-last-page-at-forever-as-a-prominent-final-visual-styled-to-match-the-existing-romantic-cinematic-theme",
+      "featureTitle": "Add a romantic picture to the very end of the experience (the last page at /forever) as a prominent final visual, styled to match the existing romantic cinematic theme.",
       "files": [
-        "frontend/src/components/romance/MusicProvider.tsx"
+        "frontend/src/pages/Forever.tsx"
       ],
       "components": [
         "core-infrastructure@1.0.2",
@@ -33,26 +51,7 @@
         "github-export-icp-cli@1.0.0"
       ],
       "testIds": [
-        "REQ-12"
-      ],
-      "confidence": "high"
-    },
-    {
-      "featureId": "feature-ensure-the-music-toggle-control-works-consistently-on-every-page-and-reflects-the-true-playback-state-playing-vs-paused",
-      "featureTitle": "Ensure the music toggle control works consistently on every page and reflects the true playback state (playing vs paused).",
-      "files": [
-        "frontend/src/components/romance/MusicProvider.tsx",
-        "frontend/src/components/romance/MusicToggle.tsx"
-      ],
-      "components": [
-        "core-infrastructure@1.0.2",
-        "shadcn-ui@1.0.0",
-        "build-template-react@1.0.0",
-        "initial-app@1.0.0",
-        "github-export-icp-cli@1.0.0"
-      ],
-      "testIds": [
-        "REQ-13"
+        "REQ-16"
       ],
       "confidence": "high"
     }

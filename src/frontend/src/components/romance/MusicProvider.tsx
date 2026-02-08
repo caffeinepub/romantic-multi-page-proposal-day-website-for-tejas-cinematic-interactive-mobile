@@ -17,17 +17,18 @@ export function useMusic() {
 
 export function MusicProvider({ children }: { children: ReactNode }) {
   const [isPlaying, setIsPlaying] = useState(false);
-  const [userWantsMusic, setUserWantsMusic] = useState(false);
   const audioRef = useRef<HTMLAudioElement | null>(null);
-  const retryListenerRef = useRef<(() => void) | null>(null);
+  const retryHandlerRef = useRef<(() => void) | null>(null);
+  const userWantsMusicRef = useRef(false);
 
+  // Initialize audio element and check saved preference
   useEffect(() => {
     // Create audio element with the background music file
     audioRef.current = new Audio('/assets/music/background-music.mp3');
     audioRef.current.loop = true;
     audioRef.current.volume = 0.3;
 
-    // Listen to actual playback events
+    // Listen to actual playback events to keep state accurate
     const handlePlay = () => setIsPlaying(true);
     const handlePause = () => setIsPlaying(false);
     const handleEnded = () => setIsPlaying(false);
@@ -39,11 +40,11 @@ export function MusicProvider({ children }: { children: ReactNode }) {
     // Check localStorage for saved preference
     const savedPreference = localStorage.getItem('music-playing');
     if (savedPreference === 'true') {
-      setUserWantsMusic(true);
+      userWantsMusicRef.current = true;
       // Try to play immediately
       audioRef.current.play().catch(() => {
-        // Autoplay blocked - will retry on user gesture
-        console.log('Autoplay blocked, waiting for user interaction');
+        // Autoplay blocked - arm retry handler
+        armRetryHandler();
       });
     }
 
@@ -55,52 +56,57 @@ export function MusicProvider({ children }: { children: ReactNode }) {
         audioRef.current.pause();
         audioRef.current = null;
       }
-      if (retryListenerRef.current) {
-        document.removeEventListener('click', retryListenerRef.current);
-        document.removeEventListener('keydown', retryListenerRef.current);
-        retryListenerRef.current = null;
-      }
+      disarmRetryHandler();
     };
   }, []);
 
-  // Handle user preference changes
-  useEffect(() => {
-    if (!audioRef.current) return;
+  // Arm a single user-gesture retry handler
+  const armRetryHandler = () => {
+    if (retryHandlerRef.current) return; // Already armed
 
-    if (userWantsMusic && !isPlaying) {
-      // User wants music but it's not playing - try to play
-      audioRef.current.play().catch((error) => {
-        console.log('Play blocked, setting up retry listener:', error);
-        // Set up one-time listener for next user gesture
-        if (!retryListenerRef.current) {
-          const retryPlay = () => {
-            if (audioRef.current && userWantsMusic) {
-              audioRef.current.play().catch(() => {
-                // Still blocked, keep listener active
-              });
-            }
-          };
-          retryListenerRef.current = retryPlay;
-          document.addEventListener('click', retryPlay, { once: true });
-          document.addEventListener('keydown', retryPlay, { once: true });
-        }
-      });
-    } else if (!userWantsMusic && isPlaying) {
-      // User doesn't want music and it's playing - pause
-      audioRef.current.pause();
-      // Remove retry listener if exists
-      if (retryListenerRef.current) {
-        document.removeEventListener('click', retryListenerRef.current);
-        document.removeEventListener('keydown', retryListenerRef.current);
-        retryListenerRef.current = null;
+    const retryPlay = () => {
+      if (audioRef.current && userWantsMusicRef.current) {
+        audioRef.current.play().catch(() => {
+          // Still blocked, but handler will be re-armed on next attempt
+        });
       }
+      // Disarm after first attempt
+      disarmRetryHandler();
+    };
+
+    retryHandlerRef.current = retryPlay;
+    document.addEventListener('click', retryPlay, { once: true });
+    document.addEventListener('keydown', retryPlay, { once: true });
+  };
+
+  // Disarm retry handler
+  const disarmRetryHandler = () => {
+    if (retryHandlerRef.current) {
+      document.removeEventListener('click', retryHandlerRef.current);
+      document.removeEventListener('keydown', retryHandlerRef.current);
+      retryHandlerRef.current = null;
     }
-  }, [userWantsMusic, isPlaying]);
+  };
 
   const toggle = () => {
-    const newState = !userWantsMusic;
-    setUserWantsMusic(newState);
+    if (!audioRef.current) return;
+
+    const newState = !userWantsMusicRef.current;
+    userWantsMusicRef.current = newState;
     localStorage.setItem('music-playing', String(newState));
+
+    if (newState) {
+      // User wants music ON
+      audioRef.current.play().catch(() => {
+        // Autoplay blocked - arm retry handler
+        armRetryHandler();
+      });
+    } else {
+      // User wants music OFF
+      audioRef.current.pause();
+      // Disarm any pending retry handler
+      disarmRetryHandler();
+    }
   };
 
   return (
