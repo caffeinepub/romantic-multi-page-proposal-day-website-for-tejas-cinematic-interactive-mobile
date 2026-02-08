@@ -1,77 +1,38 @@
 {
   "kind": "build_request",
-  "title": "Fix background music playback and add a final romantic image on the last page",
-  "priority": "high",
+  "title": "Swap the final romantic image on the /forever page",
+  "priority": "normal",
   "requirements": [
     {
-      "id": "REQ-14",
-      "text": "Make background music actually play across the entire experience (all routes) by ensuring the audio file exists at the exact path used by the app (/assets/music/background-music.mp3) and loads without 404s in production builds.",
+      "id": "REQ-17",
+      "text": "Replace the final romantic image shown at the bottom of the /forever page with a different romantic image, keeping the existing styling (rounded frame, border, shadow, and overlay gradient) and ensuring the image loads as a static asset from frontend/public/assets/generated.",
       "target": "frontend",
       "source": {
         "messageIds": [
           "msg-4"
         ],
         "quotes": [
-          "Music nahi hua add & last me romantic pic chahiye"
+          "Yes"
         ]
       },
       "acceptanceCriteria": [
-        "A real audio file is present in the frontend static assets at /assets/music/background-music.mp3 (served by the frontend, not the backend).",
-        "Opening the deployed site and checking DevTools Network shows the music file request succeeds (no 404/failed requests).",
-        "When the user turns music ON, the track can be heard and continues when navigating between pages (e.g., / -> /our-story -> /proposal)."
-      ]
-    },
-    {
-      "id": "REQ-15",
-      "text": "Fix MusicProvider/MusicToggle behavior so that the music reliably starts after a user gesture (browser autoplay compliance) and the toggle always reflects the true playback state (playing vs paused), including after refresh when localStorage 'music-playing' is true.",
-      "target": "frontend",
-      "source": {
-        "messageIds": [
-          "msg-4"
-        ],
-        "quotes": [
-          "Music nahi hua add & last me romantic pic chahiye"
-        ]
-      },
-      "acceptanceCriteria": [
-        "If localStorage('music-playing') is 'true' and autoplay is blocked, the next user gesture (click or keydown) starts playback successfully without requiring multiple attempts.",
-        "The toggle icon/aria-label updates based on actual audio playback events (play/pause/ended) and remains consistent after route navigation.",
-        "Toggling OFF pauses audio immediately and prevents any pending retry listener from starting playback again until toggled ON.",
-        "Refreshing the page preserves the user preference and results in the expected behavior: (a) plays immediately if allowed, or (b) plays on the next user gesture if blocked."
-      ]
-    },
-    {
-      "id": "REQ-16",
-      "text": "Add a romantic picture to the very end of the experience (the last page at /forever) as a prominent final visual, styled to match the existing romantic cinematic theme.",
-      "target": "frontend",
-      "source": {
-        "messageIds": [
-          "msg-4"
-        ],
-        "quotes": [
-          "Music nahi hua add & last me romantic pic chahiye"
-        ]
-      },
-      "acceptanceCriteria": [
-        "A new romantic image asset is added under frontend/public/assets/generated and is displayed on the /forever page near the bottom as the closing visual.",
-        "The image is responsive (looks good on mobile and desktop), does not overflow the viewport, and includes meaningful alt text in English.",
-        "The image loads without errors (no 404) and matches the site’s existing soft-glow romantic aesthetic."
+        "The /forever page displays the new final romantic image in the final image section (replacing the previous one).",
+        "The new image is served from a file under frontend/public/assets/generated and loads without 404s in production builds.",
+        "The final image container styling remains consistent (rounded-3xl frame, border, shadow, and top overlay gradient remain visually intact)."
       ]
     }
   ],
   "constraints": [
-    "Do not edit files under frontend/src/hooks/useInternetIdentity.ts, frontend/src/hooks/useInternetIdentity.tsx, frontend/src/hooks/useActor.ts, frontend/src/main.tsx, or anything in frontend/src/components/ui (immutable paths).",
-    "Do not route images or audio through the backend; serve them as static frontend assets.",
-    "Backend must remain a single Motoko actor; do not introduce additional backend services."
+    "Do not route images through the backend; serve them as frontend static assets under frontend/public/assets/generated.",
+    "Do not modify any files under frontend/src/components/ui or other immutable paths listed in SYSTEM_CONTEXT."
   ],
   "nonGoals": [
-    "Adding new authentication methods beyond existing Internet Identity support.",
-    "Adding real-time features (WebSockets/chat/push notifications).",
-    "Changing the overall page flow/routes beyond adding the final image to the existing last page."
+    "Do not change the copy/text on the /forever page beyond what is required to swap the image.",
+    "Do not make additional changes to background music behavior as part of this request."
   ],
   "imageRequirements": {
     "required": [
-      "Romantic couple silhouette at sunset with soft bokeh hearts, cinematic lighting, warm blush/champagne palette (final-romantic-scene.dim_1920x1080.png)"
+      "Romantic couple silhouette at sunset with soft bokeh hearts, cinematic lighting, warm blush/champagne palette (final-romantic-scene-v2.dim_1920x1080.png)"
     ],
     "edits": []
   }

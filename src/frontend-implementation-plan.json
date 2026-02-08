@@ -1,69 +1,26 @@
 {
   "kind": "implementation_plan",
   "version": "1.0",
-  "title": "Fix site-wide background music playback and add final romantic image on /forever",
+  "title": "Swap final romantic image on /forever page to new static asset",
   "requirements": [
     {
-      "id": "REQ-14",
-      "summary": "Ensure the background music file exists at the exact public path and is served successfully in production so it can play across all routes.",
+      "id": "REQ-17",
+      "summary": "Replace the final romantic image on the /forever page with the new provided romantic image served as a frontend static asset, preserving the existing container styling and overlay gradient.",
       "acceptanceCriteria": [
-        "A real audio file is present in the frontend static assets at /assets/music/background-music.mp3 (served by the frontend, not the backend).",
-        "Opening the deployed site and checking DevTools Network shows the music file request succeeds (no 404/failed requests).",
-        "When the user turns music ON, the track can be heard and continues when navigating between pages (e.g., / -> /our-story -> /proposal)."
+        "The /forever page displays the new final romantic image in the final image section (replacing the previous one).",
+        "The new image is served from a file under frontend/public/assets/generated and loads without 404s in production builds.",
+        "The final image container styling remains consistent (rounded-3xl frame, border, shadow, and top overlay gradient remain visually intact)."
       ],
       "file_operations": [
         {
-          "path": "frontend/public/assets/music/background-music.mp3",
+          "path": "frontend/public/assets/generated/final-romantic-scene-v2.dim_1920x1080.png",
           "operation": "create",
-          "description": "Add the real background music audio file at the exact static path required by the app so it is served at /assets/music/background-music.mp3 in production builds."
-        },
-        {
-          "path": "frontend/index.html",
-          "operation": "modify",
-          "description": "Add an audio preload hint for /assets/music/background-music.mp3 to reduce initial playback delay and help validate that the asset is bundled/served correctly."
-        }
-      ]
-    },
-    {
-      "id": "REQ-15",
-      "summary": "Make MusicProvider/MusicToggle autoplay-compliant and state-accurate by using user-gesture retry logic tied to actual audio events and persisted preference.",
-      "acceptanceCriteria": [
-        "If localStorage('music-playing') is 'true' and autoplay is blocked, the next user gesture (click or keydown) starts playback successfully without requiring multiple attempts.",
-        "The toggle icon/aria-label updates based on actual audio playback events (play/pause/ended) and remains consistent after route navigation.",
-        "Toggling OFF pauses audio immediately and prevents any pending retry listener from starting playback again until toggled ON.",
-        "Refreshing the page preserves the user preference and results in the expected behavior: (a) plays immediately if allowed, or (b) plays on the next user gesture if blocked."
-      ],
-      "file_operations": [
-        {
-          "path": "frontend/src/components/romance/MusicProvider.tsx",
-          "operation": "modify",
-          "description": "Refactor playback control to (1) arm a single user-gesture retry handler whenever play() is blocked (including on initial load when localStorage preference is true), (2) disarm any pending retry handler immediately when toggled OFF, and (3) keep isPlaying derived from real audio element events so state remains accurate across route navigation and refresh."
-        },
-        {
-          "path": "frontend/src/components/romance/MusicToggle.tsx",
-          "operation": "modify",
-          "description": "Ensure the toggle’s icon and aria-label remain strictly aligned with the real playback state reported by MusicProvider (playing vs paused), and remain stable during navigation/refresh scenarios."
-        }
-      ]
-    },
-    {
-      "id": "REQ-16",
-      "summary": "Add a prominent, responsive romantic final image near the bottom of the /forever page, matching the existing soft-glow cinematic theme.",
-      "acceptanceCriteria": [
-        "A new romantic image asset is added under frontend/public/assets/generated and is displayed on the /forever page near the bottom as the closing visual.",
-        "The image is responsive (looks good on mobile and desktop), does not overflow the viewport, and includes meaningful alt text in English.",
-        "The image loads without errors (no 404) and matches the site’s existing soft-glow romantic aesthetic."
-      ],
-      "file_operations": [
-        {
-          "path": "frontend/public/assets/generated/final-romantic-scene.dim_1920x1080.png",
-          "operation": "create",
-          "description": "Add the generated romantic closing image asset at frontend/public/assets/generated/final-romantic-scene.dim_1920x1080.png so it can be displayed on the /forever page without 404s."
+          "description": "Add the new generated static image asset exactly as required: frontend/public/assets/generated/final-romantic-scene-v2.dim_1920x1080.png (Romantic couple silhouette at sunset with soft bokeh hearts, cinematic lighting, warm blush/champagne palette)."
         },
         {
           "path": "frontend/src/pages/Forever.tsx",
           "operation": "modify",
-          "description": "Render the final romantic image (src: /assets/generated/final-romantic-scene.dim_1920x1080.png) near the bottom as the closing visual, with responsive sizing, no overflow, and meaningful English alt text; style it to match the existing soft-glow cinematic palette."
+          "description": "Update the final romantic image <img> to use the new static asset path /assets/generated/final-romantic-scene-v2.dim_1920x1080.png, keeping the existing container classes and overlay gradient unchanged (rounded-3xl, border, shadow-2xl, and bg-gradient-to-t overlay)."
         }
       ]
     }

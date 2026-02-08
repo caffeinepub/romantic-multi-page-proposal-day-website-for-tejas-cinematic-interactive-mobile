@@ -56,7 +56,7 @@ export default function Forever() {
           <div className="mt-16 mb-8">
             <div className="relative rounded-3xl overflow-hidden shadow-2xl border-4 border-rose/30 max-w-3xl mx-auto">
               <img 
-                src="/assets/generated/final-romantic-scene.dim_1920x1080.png" 
+                src="/assets/generated/final-romantic-scene-v2.dim_1920x1080.png" 
                 alt="A romantic scene symbolizing our eternal love and journey together"
                 className="w-full h-auto object-cover"
               />

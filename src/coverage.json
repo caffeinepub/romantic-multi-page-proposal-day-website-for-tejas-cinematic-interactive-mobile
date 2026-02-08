@@ -1,50 +1,25 @@
 {
   "kind": "coverage_report",
   "version": "1.0",
-  "generatedAt": "2026-02-08T06:13:47.277Z",
+  "generatedAt": "2026-02-08T06:18:17.190Z",
   "sources": {
     "buildRequest": true,
     "implementationPlan": true
   },
   "requirements": {
-    "total": 3,
-    "implemented": 3,
+    "total": 1,
+    "implemented": 1,
     "items": [
       {
-        "id": "REQ-14",
-        "summary": "Make background music actually play across the entire experience (all routes) by ensuring the audio file exists at the exact path used by the app (/assets/music/background-music.mp3) and loads without 404s in production builds.",
+        "id": "REQ-17",
+        "summary": "Replace the final romantic image shown at the bottom of the /forever page with a different romantic image, keeping the existing styling (rounded frame, border, shadow, and overlay gradient) and ensuring the image loads as a static asset from frontend/public/assets/generated.",
         "status": "implemented",
         "plannedFiles": [
-          "frontend/public/assets/music/background-music.mp3",
-          "frontend/index.html"
-        ],
-        "matchedFiles": [
-          "frontend/public/assets/music/background-music.mp3",
-          "frontend/index.html"
-        ]
-      },
-      {
-        "id": "REQ-15",
-        "summary": "Fix MusicProvider/MusicToggle behavior so that the music reliably starts after a user gesture (browser autoplay compliance) and the toggle always reflects the true playback state (playing vs paused), including after refresh when localStorage 'music-playing' is true.",
-        "status": "implemented",
-        "plannedFiles": [
-          "frontend/src/components/romance/MusicProvider.tsx",
-          "frontend/src/components/romance/MusicToggle.tsx"
-        ],
-        "matchedFiles": [
-          "frontend/src/components/romance/MusicProvider.tsx"
-        ]
-      },
-      {
-        "id": "REQ-16",
-        "summary": "Add a romantic picture to the very end of the experience (the last page at /forever) as a prominent final visual, styled to match the existing romantic cinematic theme.",
-        "status": "implemented",
-        "plannedFiles": [
-          "frontend/public/assets/generated/final-romantic-scene.dim_1920x1080.png",
+          "frontend/public/assets/generated/final-romantic-scene-v2.dim_1920x1080.png",
           "frontend/src/pages/Forever.tsx"
         ],
         "matchedFiles": [
-          "frontend/public/assets/generated/final-romantic-scene.dim_1920x1080.png",
+          "frontend/public/assets/generated/final-romantic-scene-v2.dim_1920x1080.png",
           "frontend/src/pages/Forever.tsx"
         ]
       }
@@ -55,10 +30,7 @@
     "feature_evidence.json",
     "frontend-file-summaries.txt",
     "frontend-implementation-plan.json",
-    "frontend/index.html",
-    "frontend/public/assets/generated/final-romantic-scene.dim_1920x1080.png",
-    "frontend/public/assets/music/background-music.mp3",
-    "frontend/src/components/romance/MusicProvider.tsx",
+    "frontend/public/assets/generated/final-romantic-scene-v2.dim_1920x1080.png",
     "frontend/src/pages/Forever.tsx",
     "project_state.json",
     "scratch/component-selection.json",

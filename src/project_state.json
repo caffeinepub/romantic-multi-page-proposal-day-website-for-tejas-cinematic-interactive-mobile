@@ -1,14 +1,14 @@
 {
   "schemaVersion": "1.0.0",
-  "projectStateVersion": 7,
+  "projectStateVersion": 9,
   "summary": "Multi-page romantic, cinematic proposal website for Tejas (Proposal Day), with dreamy visuals, animations, interactive moments, and optional background music.",
   "architectural_notes": [],
   "known_issues": [
     "Background music toggle/auto-play is not working; user reports music was not added and wants background music across all pages.",
     "User reports background music still not added/working across pages (regression persists)."
   ],
-  "isFixRequest": true,
-  "imageRequirements": "## Required Images\n- Romantic couple silhouette at sunset with soft bokeh hearts, cinematic lighting, warm blush/champagne palette (final-romantic-scene.dim_1920x1080.png)",
+  "isFixRequest": false,
+  "imageRequirements": "## Required Images\n- Romantic couple silhouette at sunset with soft bokeh hearts, cinematic lighting, warm blush/champagne palette (final-romantic-scene-v2.dim_1920x1080.png)",
   "existing_features": [
     {
       "id": "feature-create-a-multi-page-mobile-first-proposal-website-dedicated-to-tejas-with-smooth-page-transitions-and-a-consistent-romantic-visual-system-blush-pink-deep-red-champagne-gold-soft-lavender-warm-cream-elegant-cursive-clean-modern-typography-soft-glow-floating-hearts-and-subtle-rose-petals-gentle-animations",
@@ -137,6 +137,14 @@
         "REQ-16"
       ],
       "version": 1
+    },
+    {
+      "id": "feature-replace-the-final-romantic-image-shown-at-the-bottom-of-the-forever-page-with-a-different-romantic-image-keeping-the-existing-styling-rounded-frame-border-shadow-and-overlay-gradient-and-ensuring-the-image-loads-as-a-static-asset-from-frontend-public-assets-generated",
+      "title": "Replace the final romantic image shown at the bottom of the /forever page with a different romantic image, keeping the existing styling (rounded frame, border, shadow, and overlay gradient) and ensuring the image loads as a static asset from frontend/public/assets/generated.",
+      "reqIds": [
+        "REQ-17"
+      ],
+      "version": 1
     }
   ],
   "new_feature_requests": [
@@ -197,6 +205,12 @@
     {
       "id": "AR-10",
       "summary": "Add a final romantic picture/image at the end of the experience (last page/closing screen).",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-11",
+      "summary": "Swap/replace the current romantic image asset with a different romantic image (update the final visual accordingly).",
       "reqIds": [],
       "status": "pending"
     }

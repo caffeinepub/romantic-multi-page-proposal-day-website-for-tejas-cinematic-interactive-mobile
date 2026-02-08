@@ -2,44 +2,8 @@
   "kind": "feature_evidence_report",
   "features": [
     {
-      "featureId": "feature-make-background-music-actually-play-across-the-entire-experience-all-routes-by-ensuring-the-audio-file-exists-at-the-exact-path-used-by-the-app-assets-music-background-music-mp3-and-loads-without-404s-in-production-builds",
-      "featureTitle": "Make background music actually play across the entire experience (all routes) by ensuring the audio file exists at the exact path used by the app (/assets/music/background-music.mp3) and loads without 404s in production builds.",
-      "files": [
-        "frontend/index.html"
-      ],
-      "components": [
-        "core-infrastructure@1.0.2",
-        "shadcn-ui@1.0.0",
-        "build-template-react@1.0.0",
-        "initial-app@1.0.0",
-        "github-export-icp-cli@1.0.0"
-      ],
-      "testIds": [
-        "REQ-14"
-      ],
-      "confidence": "high"
-    },
-    {
-      "featureId": "feature-fix-musicprovider-musictoggle-behavior-so-that-the-music-reliably-starts-after-a-user-gesture-browser-autoplay-compliance-and-the-toggle-always-reflects-the-true-playback-state-playing-vs-paused-including-after-refresh-when-localstorage-music-playing-is-true",
-      "featureTitle": "Fix MusicProvider/MusicToggle behavior so that the music reliably starts after a user gesture (browser autoplay compliance) and the toggle always reflects the true playback state (playing vs paused), including after refresh when localStorage 'music-playing' is true.",
-      "files": [
-        "frontend/src/components/romance/MusicProvider.tsx"
-      ],
-      "components": [
-        "core-infrastructure@1.0.2",
-        "shadcn-ui@1.0.0",
-        "build-template-react@1.0.0",
-        "initial-app@1.0.0",
-        "github-export-icp-cli@1.0.0"
-      ],
-      "testIds": [
-        "REQ-15"
-      ],
-      "confidence": "high"
-    },
-    {
-      "featureId": "feature-add-a-romantic-picture-to-the-very-end-of-the-experience-the-last-page-at-forever-as-a-prominent-final-visual-styled-to-match-the-existing-romantic-cinematic-theme",
-      "featureTitle": "Add a romantic picture to the very end of the experience (the last page at /forever) as a prominent final visual, styled to match the existing romantic cinematic theme.",
+      "featureId": "feature-replace-the-final-romantic-image-shown-at-the-bottom-of-the-forever-page-with-a-different-romantic-image-keeping-the-existing-styling-rounded-frame-border-shadow-and-overlay-gradient-and-ensuring-the-image-loads-as-a-static-asset-from-frontend-public-assets-generated",
+      "featureTitle": "Replace the final romantic image shown at the bottom of the /forever page with a different romantic image, keeping the existing styling (rounded frame, border, shadow, and overlay gradient) and ensuring the image loads as a static asset from frontend/public/assets/generated.",
       "files": [
         "frontend/src/pages/Forever.tsx"
       ],
@@ -51,7 +15,7 @@
         "github-export-icp-cli@1.0.0"
       ],
       "testIds": [
-        "REQ-16"
+        "REQ-17"
       ],
       "confidence": "high"
     }
