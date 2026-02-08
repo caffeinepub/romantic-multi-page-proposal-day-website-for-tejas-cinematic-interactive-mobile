@@ -1,0 +1,70 @@
+{
+  "kind": "implementation_plan",
+  "version": "1.0",
+  "title": "Fix and enable continuous background music across all pages",
+  "requirements": [
+    {
+      "id": "REQ-11",
+      "summary": "Add a single real background music audio asset and configure MusicProvider to load it for continuous looping playback across navigation.",
+      "acceptanceCriteria": [
+        "A single audio file exists in the frontend static assets (e.g., under frontend/public) and is referenced by the music playback code via a valid URL path.",
+        "When the user turns music on, the track plays and loops continuously while navigating between pages (Home, Our Story, Why I Love You, Feel My Love, Proposal, Love Letter, Forever).",
+        "Music volume is set to a non-intrusive level (similar to the current 0.3 setting) and looping is enabled."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/public/assets/music/background-music.mp3",
+          "operation": "create",
+          "description": "Add a real, license-safe background music track as a static asset for the app (single track for the whole site)."
+        },
+        {
+          "path": "frontend/src/components/romance/MusicProvider.tsx",
+          "operation": "modify",
+          "description": "Wire the audio element to the static asset at frontend/public/assets/music/background-music.mp3 (set src via a valid public URL path), ensure loop=true and volume≈0.3, and ensure the audio element is created once so playback can continue across route navigation."
+        }
+      ]
+    },
+    {
+      "id": "REQ-12",
+      "summary": "Make MusicProvider robust to autoplay restrictions: preserve the saved preference, retry playback after the next user gesture, and keep playback/persistence state consistent.",
+      "acceptanceCriteria": [
+        "If localStorage indicates music was previously enabled, the app attempts to start playback; if autoplay is blocked, the app keeps the user’s preference enabled and starts playback automatically after the next user interaction (click/tap/keypress).",
+        "Toggling music ON always results in audible playback within the same session after a permitted user gesture; toggling OFF pauses playback immediately.",
+        "The music state (on/off) persists across page reloads using localStorage and matches the actual playback state after user interaction."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/components/romance/MusicProvider.tsx",
+          "operation": "modify",
+          "description": "Refactor state handling so a saved 'music-playing' preference triggers an initial play attempt; if play is blocked, keep the preference enabled and register a one-time (or short-lived) user-gesture listener (click/tap/keydown) to retry play automatically. Ensure toggling OFF pauses immediately and removes any pending gesture listeners; toggling ON triggers a play attempt and, if blocked, sets up the same retry behavior. Keep localStorage in sync with the user preference while separately tracking the real playback state via audio events (play/pause/ended)."
+        }
+      ]
+    },
+    {
+      "id": "REQ-13",
+      "summary": "Ensure the global music toggle is consistent on every page and reflects the actual playback state without console errors.",
+      "acceptanceCriteria": [
+        "The toggle button is visible on all pages (as part of the global layout) and can start/stop the background music.",
+        "The toggle icon/aria-label updates correctly based on whether music is currently playing or paused.",
+        "No console errors occur related to audio playback initialization or missing audio sources during navigation and toggling."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/components/romance/MusicProvider.tsx",
+          "operation": "modify",
+          "description": "Expose playback state that reflects the actual audio element state (playing vs paused) and ensure provider logic cannot throw or log errors during navigation (e.g., guard against null refs, ensure src exists, and handle play() promise rejections without flipping the saved preference off)."
+        },
+        {
+          "path": "frontend/src/components/romance/MusicToggle.tsx",
+          "operation": "modify",
+          "description": "Update the toggle UI to reflect the true playback state from MusicProvider (icon and aria-label based on actual playing vs paused), while keeping the click action mapped to the provider toggle behavior so it works consistently on every page."
+        },
+        {
+          "path": "frontend/src/components/romance/RomanticLayout.tsx",
+          "operation": "modify",
+          "description": "Confirm the MusicToggle remains part of the global layout rendered for all routes, and adjust only if needed to ensure it is consistently visible and not conditionally unmounted during page transitions."
+        }
+      ]
+    }
+  ]
+}

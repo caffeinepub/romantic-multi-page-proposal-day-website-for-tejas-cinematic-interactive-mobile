@@ -1,0 +1,176 @@
+{
+  "schemaVersion": "1.0.0",
+  "projectStateVersion": 5,
+  "summary": "Multi-page romantic, cinematic proposal website for Tejas (Proposal Day), with dreamy visuals, animations, interactive moments, and optional background music.",
+  "architectural_notes": [],
+  "known_issues": [
+    "Background music toggle/auto-play is not working; user reports music was not added and wants background music across all pages."
+  ],
+  "isFixRequest": true,
+  "existing_features": [
+    {
+      "id": "feature-create-a-multi-page-mobile-first-proposal-website-dedicated-to-tejas-with-smooth-page-transitions-and-a-consistent-romantic-visual-system-blush-pink-deep-red-champagne-gold-soft-lavender-warm-cream-elegant-cursive-clean-modern-typography-soft-glow-floating-hearts-and-subtle-rose-petals-gentle-animations",
+      "title": "Create a multi-page, mobile-first proposal website dedicated to Tejas with smooth page transitions and a consistent romantic visual system: blush pink, deep red, champagne gold, soft lavender, warm cream; elegant cursive + clean modern typography; soft glow; floating hearts and subtle rose petals; gentle animations.",
+      "reqIds": [
+        "REQ-1"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-the-home-page-titled-tejas-this-is-for-you-with-a-full-screen-hero-animated-headline-text-from-the-moment-i-met-you-my-heart-chose-you-a-short-emotional-intro-about-destiny-love-proposal-day-and-a-primary-cta-button-labeled-begin-our-love-story-that-navigates-to-the-next-page",
+      "title": "Implement the Home page titled “Tejas, This Is For You” with a full-screen hero, animated headline text “From the moment I met you, my heart chose you.”, a short emotional intro about destiny/love/Proposal Day, and a primary CTA button labeled “Begin Our Love Story 💞” that navigates to the next page.",
+      "reqIds": [
+        "REQ-2"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-the-our-story-page-how-we-became-us-as-a-timeline-style-storytelling-layout-with-sections-first-meeting-first-smile-first-laugh-falling-in-love-each-section-must-fade-in-on-scroll-and-include-an-emotional-quote-caption-written-directly-to-tejas",
+      "title": "Implement the “Our Story” page (“How We Became Us”) as a timeline-style storytelling layout with sections: First meeting, First smile, First laugh, Falling in love. Each section must fade in on scroll and include an emotional quote/caption written directly to Tejas.",
+      "reqIds": [
+        "REQ-3"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-the-why-i-love-you-page-a-million-reasons-one-heart-featuring-interactive-heart-shaped-cards-that-flip-on-click-tap-each-card-reveals-a-reason-and-a-short-emotional-message-add-a-subtle-heartbeat-style-background-animation-for-the-page",
+      "title": "Implement the “Why I Love You” page (“A Million Reasons, One Heart”) featuring interactive heart-shaped cards that flip on click/tap. Each card reveals a reason and a short emotional message. Add a subtle heartbeat-style background animation for the page.",
+      "reqIds": [
+        "REQ-4"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-the-feel-my-love-page-with-a-primary-button-labeled-tap-to-feel-my-heart-when-activated-the-screen-pulses-like-a-heartbeat-and-reveals-the-message-every-beat-whispers-your-name-tejas-provide-an-option-to-replay-the-effect",
+      "title": "Implement the “Feel My Love” page with a primary button labeled “Tap to Feel My Heart ❤️”. When activated, the screen pulses like a heartbeat and reveals the message “Every beat whispers your name, Tejas.” Provide an option to replay the effect.",
+      "reqIds": [
+        "REQ-5"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-the-proposal-page-as-the-climax-dark-romantic-background-with-glowing-stars-slow-sequential-text-reveal-tejas-you-are-my-today-my-tomorrow-my-forever-then-a-final-large-glowing-question-will-you-be-mine-forever-with-two-buttons-yes-and-of-course-yes-clicking-either-triggers-celebratory-romantic-animations-the-yes-path-must-include-an-explosion-of-hearts-confetti-and-a-romantic-confirmation-message-the-of-course-yes-path-must-include-a-sweet-teasing-animation",
+      "title": "Implement “The Proposal” page as the climax: dark romantic background with glowing stars, slow sequential text reveal (“Tejas…”, “You are my today.”, “My tomorrow.”, “My forever.”), then a final large glowing question “Will You Be Mine Forever?” with two buttons: “YES ❤️” and “Of course YES 💖”. Clicking either triggers celebratory romantic animations; the “YES ❤️” path must include an explosion of hearts/confetti and a romantic confirmation message; the “Of course YES 💖” path must include a sweet teasing animation.",
+      "reqIds": [
+        "REQ-6"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-the-love-letter-page-with-a-handwritten-style-love-letter-addressed-to-tejas-the-letter-must-be-emotional-sincere-romantic-deep-and-end-with-the-line-happy-proposal-day-my-love",
+      "title": "Implement the “Love Letter” page with a handwritten-style love letter addressed to Tejas. The letter must be emotional, sincere, romantic, deep, and end with the line “Happy Proposal Day, my love.”",
+      "reqIds": [
+        "REQ-7"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-the-forever-page-this-is-just-the-beginning-with-messaging-about-growing-old-together-include-the-quote-if-i-had-a-thousand-lifetimes-i-d-choose-you-in-every-one-and-add-a-soft-looping-animation-of-two-hearts-becoming-one",
+      "title": "Implement the “Forever” page (“This Is Just The Beginning”) with messaging about growing old together, include the quote “If I had a thousand lifetimes, I’d choose you in every one.”, and add a soft looping animation of two hearts becoming one.",
+      "reqIds": [
+        "REQ-8"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-the-unique-features-1-a-hidden-easter-egg-where-clicking-a-heart-reveals-a-secret-message-2-a-proposal-day-countdown-timer-showing-hours-minutes-remaining-3-the-name-tejas-subtly-glowing-across-pages-e-g-watermark-or-ambient-text-layer-4-an-optional-background-music-toggle-romantic-piano-lo-fi-love-theme-that-can-be-turned-on-off-by-the-user-and-persists-while-navigating-between-pages-5-a-shareable-private-link-approach-using-a-single-url-that-opens-directly-to-the-experience-no-external-auth",
+      "title": "Add the unique features: (1) a hidden Easter egg where clicking a heart reveals a secret message; (2) a Proposal Day countdown timer showing hours/minutes remaining; (3) the name “Tejas” subtly glowing across pages (e.g., watermark or ambient text layer); (4) an optional background music toggle (romantic piano / lo-fi love theme) that can be turned on/off by the user and persists while navigating between pages; (5) a shareable private link approach using a single URL that opens directly to the experience (no external auth).",
+      "reqIds": [
+        "REQ-9"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-and-render-generated-static-visual-assets-to-enhance-the-romantic-cinematic-feel-hearts-petals-stars-paper-textures-store-generated-images-under-frontend-public-assets-generated-and-use-them-in-the-ui-do-not-route-images-through-the-backend",
+      "title": "Add and render generated static visual assets to enhance the romantic cinematic feel (hearts/petals/stars/paper textures). Store generated images under frontend/public/assets/generated and use them in the UI (do not route images through the backend).",
+      "reqIds": [
+        "REQ-10"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-a-real-background-music-audio-file-to-the-frontend-static-assets-and-configure-the-app-to-use-it-for-continuous-background-playback-across-all-pages",
+      "title": "Add a real background music audio file to the frontend static assets and configure the app to use it for continuous background playback across all pages.",
+      "reqIds": [
+        "REQ-11"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-fix-musicprovider-so-that-background-music-reliably-starts-after-a-user-gesture-to-comply-with-browser-autoplay-restrictions-and-does-not-silently-fail-when-a-saved-music-playing-preference-is-true",
+      "title": "Fix MusicProvider so that background music reliably starts after a user gesture (to comply with browser autoplay restrictions) and does not silently fail when a saved 'music-playing' preference is true.",
+      "reqIds": [
+        "REQ-12"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-ensure-the-music-toggle-control-works-consistently-on-every-page-and-reflects-the-true-playback-state-playing-vs-paused",
+      "title": "Ensure the music toggle control works consistently on every page and reflects the true playback state (playing vs paused).",
+      "reqIds": [
+        "REQ-13"
+      ],
+      "version": 1
+    }
+  ],
+  "new_feature_requests": [
+    {
+      "id": "AR-1",
+      "summary": "Create multi-page proposal website theme, styling, and smooth transitions (romantic palette, cursive+modern fonts, floating hearts/rose petals, soft glow).",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-2",
+      "summary": "Home page: full-screen hero with animated text, emotional intro, and “Begin Our Love Story” CTA.",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-3",
+      "summary": "Our Story page: timeline sections (first meeting/smile/laugh/falling in love) with fade-in quotes and captions to Tejas.",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-4",
+      "summary": "Why I Love You page: interactive flip heart cards revealing reasons/messages with soft heartbeat background animation.",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-5",
+      "summary": "Feel My Love page: “Tap to Feel My Heart” interaction (heartbeat pulse effect, message, replay).",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-6",
+      "summary": "Proposal page: starry dark romantic background, slow text reveal, final “Will You Be Mine Forever?” with two YES options and celebratory animations.",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-7",
+      "summary": "Love Letter page: handwritten-style deep romantic letter addressed to Tejas ending with “Happy Proposal Day, my love.”",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-8",
+      "summary": "Forever page: message about growing old together, quote, and looping animation of two hearts becoming one.",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-9",
+      "summary": "Unique features: hidden heart-click Easter egg message, Proposal Day countdown timer, subtle glowing “Tejas” across pages, mobile-first responsive design, shareable private link, and optional background music toggle.",
+      "reqIds": [],
+      "status": "pending"
+    }
+  ],
+  "gameProjectType": "none",
+  "projectName": "Romantic multi-page Proposal Day website for Tejas (cinematic, interactive, mobile-first)",
+  "clarification_mode": "instant",
+  "clarification_rounds": 0
+}

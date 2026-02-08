@@ -1,0 +1,84 @@
+{
+  "kind": "build_request",
+  "title": "Fix and enable background music across all pages",
+  "priority": "normal",
+  "requirements": [
+    {
+      "id": "REQ-11",
+      "text": "Add a real background music audio file to the frontend static assets and configure the app to use it for continuous background playback across all pages.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "recent-messages"
+        ],
+        "quotes": [
+          "Music add nhi hua plzz add music in background in all pages"
+        ]
+      },
+      "acceptanceCriteria": [
+        "A single audio file exists in the frontend static assets (e.g., under frontend/public) and is referenced by the music playback code via a valid URL path.",
+        "When the user turns music on, the track plays and loops continuously while navigating between pages (Home, Our Story, Why I Love You, Feel My Love, Proposal, Love Letter, Forever).",
+        "Music volume is set to a non-intrusive level (similar to the current 0.3 setting) and looping is enabled."
+      ]
+    },
+    {
+      "id": "REQ-12",
+      "text": "Fix MusicProvider so that background music reliably starts after a user gesture (to comply with browser autoplay restrictions) and does not silently fail when a saved 'music-playing' preference is true.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "recent-messages"
+        ],
+        "quotes": [
+          "Music add nhi hua plzz add music in background in all pages"
+        ]
+      },
+      "acceptanceCriteria": [
+        "If localStorage indicates music was previously enabled, the app attempts to start playback; if autoplay is blocked, the app keeps the user’s preference enabled and starts playback automatically after the next user interaction (click/tap/keypress).",
+        "Toggling music ON always results in audible playback within the same session after a permitted user gesture; toggling OFF pauses playback immediately.",
+        "The music state (on/off) persists across page reloads using localStorage and matches the actual playback state after user interaction."
+      ]
+    },
+    {
+      "id": "REQ-13",
+      "text": "Ensure the music toggle control works consistently on every page and reflects the true playback state (playing vs paused).",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "recent-messages"
+        ],
+        "quotes": [
+          "Music add nhi hua plzz add music in background in all pages"
+        ]
+      },
+      "acceptanceCriteria": [
+        "The toggle button is visible on all pages (as part of the global layout) and can start/stop the background music.",
+        "The toggle icon/aria-label updates correctly based on whether music is currently playing or paused.",
+        "No console errors occur related to audio playback initialization or missing audio sources during navigation and toggling."
+      ]
+    }
+  ],
+  "constraints": [
+    "Do not edit files under frontend/src/components/ui or any other frontend immutablePaths listed in SYSTEM_CONTEXT.",
+    "Keep all changes within the existing single React app and single Motoko actor architecture (no new backend services)."
+  ],
+  "nonGoals": [
+    "Adding multiple tracks, playlists, or advanced audio mixing controls.",
+    "Implementing backend-hosted audio streaming or routing audio through the backend.",
+    "Adding third-party integrations for music hosting or playback."
+  ],
+  "imageRequirements": {
+    "required": [],
+    "edits": []
+  },
+  "userProfileUpdate": {
+    "goalsToAdd": [],
+    "goalsToRemove": [],
+    "preferencesToAdd": [],
+    "preferencesToRemove": [],
+    "miscToAdd": [],
+    "miscToRemove": [],
+    "fieldsToSet": {},
+    "fieldsToDelete": []
+  }
+}

@@ -1,2 +1,3 @@
-# romantic-multi-page-proposal-day-website-for-tejas-cinematic-interactive-mobile
-Exported from Caffeine project: Romantic multi-page Proposal Day website for Tejas (cinematic, interactive, mobile-first)
+## 
+
+To run app build and run docker image: `docker build -t app . docker run -it --network host app`

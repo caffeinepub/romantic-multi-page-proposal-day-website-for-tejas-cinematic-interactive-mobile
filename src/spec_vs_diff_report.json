@@ -1,0 +1,42 @@
+{
+  "kind": "spec_vs_diff_report",
+  "version": "1.0",
+  "generatedAt": "2026-02-08T06:08:39.141Z",
+  "summary": "Diff updates MusicProvider/MusicToggle to use a specific audio URL, loop/volume settings, localStorage preference, and playback-state tracking. However, the diff does not add the actual audio asset file, and the autoplay-retry logic appears unreliable due to one-time event listeners that are not re-armed if playback remains blocked.",
+  "missing_requirements": [
+    {
+      "id": "REQ-11",
+      "requirement": "Add a real background music audio file to the frontend static assets and reference it via a valid URL path.",
+      "reason": "The code references an MP3 at \"/assets/music/background-music.mp3\", but the diff shows no new static asset file being added (Added files: none).",
+      "evidence": [
+        "frontend/src/components/romance/MusicProvider.tsx",
+        "<file-diff>: ADDED FILES: none"
+      ]
+    },
+    {
+      "id": "REQ-12",
+      "requirement": "If autoplay is blocked while the saved preference is enabled, automatically start playback after the next user interaction (click/tap/keypress) without silently failing.",
+      "reason": "The retry listeners are registered with `{ once: true }` and `retryListenerRef.current` is set, but the code does not clear/re-register the listeners if the retry `play()` is still blocked. This can lead to a single failed retry and then no further retries on subsequent user interactions while preference remains enabled.",
+      "evidence": [
+        "frontend/src/components/romance/MusicProvider.tsx"
+      ]
+    },
+    {
+      "id": "REQ-13",
+      "requirement": "Ensure the music toggle control is visible on all pages as part of the global layout.",
+      "reason": "The diff only modifies the provider and toggle components; it does not show where MusicToggle is mounted in the global layout/router. Based on the diff alone, visibility on all pages cannot be confirmed.",
+      "evidence": [
+        "frontend/src/components/romance/MusicToggle.tsx",
+        "<file-diff>: Modified files list does not include App/layout mounting changes"
+      ]
+    }
+  ],
+  "hallucinated_features": [],
+  "confidence": 0.74,
+  "changed_files": [
+    "frontend-file-summaries.txt",
+    "frontend/src/components/romance/MusicProvider.tsx",
+    "frontend/src/components/romance/MusicToggle.tsx",
+    "project_state.json"
+  ]
+}
